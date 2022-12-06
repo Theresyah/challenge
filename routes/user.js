@@ -1,11 +1,19 @@
-const express=require('express')
-const router = express.Router();
-const {user,items,orders}=require('../models')
+const express=require('express');
+const app = express.Router();
+// const Validator = require('fastest-validator');
+const {user}=require('../models');
 
-app.get('/users',(req,res)=>{
+app.get('/user',(req,res)=>{
+    console.log('Api user')
+    let result = {}
     user.findAll()
     .then(hasil=>{
-        res.status(200).json(hasil)
+        //res.status(200).json(hasil)
+        
+    result=hasil
+    })
+    .then(()=>{
+    res.status(200).json(result)
     })
 })
 
@@ -19,9 +27,13 @@ app.get('/user/:id',(req,res)=>{
     })
 })
 
-app.listen(9000,()=>{
-    console.log("Server oke")
-})
+module.exports = app
+
+// app.listen(9000,()=>{
+//     console.log("Server oke")
+// })
+
+
 
 //sblmnya
 // router.get('/users',(req,res)=>{

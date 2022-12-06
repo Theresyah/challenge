@@ -1,15 +1,27 @@
 const express=require('express')
-const router = express.Router();
-const validator = require('fastest-validator');
-const v = new validator ();
-const {items}=require('../models');
+const app = express.Router();
+const {items}=require('../models')
 
-router.get('/items',(req,res)=>{
+app.get('/items',(req,res)=>{
     console.log('Api items')
-    const result = {}
-    user.findAll()
+    let result = {}
+    items.findAll()
     .then(hasil=>{
         //res.status(200).json(hasil)
     result=hasil
     })
+    .then(()=>{
+    res.status(200).json(result)
+    })
 })
+
+app.get('/items/:id',(req,res)=>{
+    items.findOne({
+        where:{id:req.params.id}
+    })
+    .then(items=>{
+        res.status(200).json(items)
+    })
+})
+
+module.exports = app
